@@ -1,0 +1,36 @@
+DAY 1 — DATA QUALITY SUMMARY
+Bluestock Fintech Mutual Fund Analytics Capstone
+======================================================================
+
+PROVIDED DATASETS (10)
+----------------------------------------------------------------------
+                     dataset  rows  columns  null_columns  duplicate_rows  anomaly_count                                                 anomalies
+          01_fund_master.csv    40       15             0               0              1 Column 'min_sip_amount' is constant (only 1 unique value)
+          02_nav_history.csv 46000        3             0               0              0                                                      None
+    03_aum_by_fund_house.csv    90        5             0               0              0                                                      None
+  04_monthly_sip_inflows.csv    48        6             1               0              1      Column 'yoy_growth_pct' has 12 nulls (25.0% of rows)
+     05_category_inflows.csv   144        3             0               0              0                                                      None
+ 06_industry_folio_count.csv    21        6             0               0              0                                                      None
+   07_scheme_performance.csv    40       19             0               0              0                                                      None
+08_investor_transactions.csv 32778       13             0               0              0                                                      None
+   09_portfolio_holdings.csv   322        8             0               0              1 Column 'portfolio_date' is constant (only 1 unique value)
+    10_benchmark_indices.csv  8050        3             0               0              0                                                      None
+
+FUND MASTER — DOMAIN SUMMARY
+----------------------------------------------------------------------
+Unique fund houses (10): ['Aditya Birla Sun Life MF', 'Axis Mutual Fund', 'DSP Mutual Fund', 'HDFC Mutual Fund', 'ICICI Prudential MF', 'Kotak Mahindra MF', 'Mirae Asset MF', 'Nippon India MF', 'SBI Mutual Fund', 'UTI Mutual Fund']
+Unique categories (2): ['Debt', 'Equity']
+Unique sub-categories (12): ['ELSS', 'Flexi Cap', 'Gilt', 'Index', 'Index/ETF', 'Large & Mid Cap', 'Large Cap', 'Liquid', 'Mid Cap', 'Short Duration', 'Small Cap', 'Value']
+Unique risk categories (5): ['High', 'Low', 'Moderate', 'Moderately High', 'Very High']
+
+AMFI CODE VALIDATION
+----------------------------------------------------------------------
+Cross-check: 01_fund_master.csv vs 02_nav_history.csv (provided dataset)
+  Total amfi_codes in fund_master: 40
+  Total amfi_codes in nav_history:  40
+  Codes in fund_master MISSING from nav_history: 0
+  Codes in nav_history not in fund_master: 0
+
+Cross-check: live mfapi.in fetch (6 schemes) vs fund_master
+  Live-fetched scheme codes: [118632, 119092, 119551, 120503, 120841, 125497]
+  Live codes NOT found in fund_master: 0
