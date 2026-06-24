@@ -1,0 +1,29 @@
+======================================================================
+DAY 2 — DATA CLEANING
+Bluestock Fintech Mutual Fund Analytics Capstone
+======================================================================
+
+======================================================================
+CLEANING: 02_nav_history.csv
+======================================================================
+  Forward-filled 0 missing business-day NAV values (holidays/weekends not present in source)
+  Rows before: 46,000 | Rows after: 46,000
+  Saved -> data\processed\clean_nav.csv
+
+======================================================================
+CLEANING: 08_investor_transactions.csv
+======================================================================
+  transaction_type values all valid: ['Lumpsum', 'Redemption', 'SIP']
+  All amount_inr values > 0 (min: 400)
+  kyc_status values all valid: ['Pending', 'Verified']
+  Rows before: 32,778 | Rows after: 32,778
+  Saved -> data\processed\clean_transactions.csv
+
+======================================================================
+CLEANING: 07_scheme_performance.csv
+======================================================================
+  All return/risk columns (11) are valid numeric
+  No funds with negative Sharpe ratio
+  All expense_ratio_pct values within 0.1-2.5% range
+  Rows before: 40 | Rows after: 40
+  Saved -> data\processed\clean_performance.csv

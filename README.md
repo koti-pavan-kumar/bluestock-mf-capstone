@@ -26,16 +26,22 @@ mutual-fund-analytics/
 └── README.md
 ```
 
-## How to Run (Day 1)
+## How to Run (Day 1 + Day 2)
 
 ```bash
 pip install -r requirements.txt
 
-# Fetch live NAV history for 6 schemes from mfapi.in
+# Day 1: fetch live NAV history for 6 schemes from mfapi.in
 python scripts/live_nav_fetch.py
 
-# Inspect all 10 provided datasets + AMFI code validation
+# Day 1: inspect all 10 provided datasets + AMFI code validation
 python scripts/data_ingestion.py
+
+# Day 2: clean nav_history, investor_transactions, scheme_performance
+python scripts/data_cleaning.py
+
+# Day 2: build the SQLite star schema and load cleaned data
+python scripts/load_to_sqlite.py
 ```
 
 ## Day 1 — Project Setup + Data Ingestion (ETL) — ✅ Complete
@@ -79,9 +85,50 @@ was verified separately; **run it on your own machine** to pull the live
 NAV history — it will save raw JSON + cleaned CSVs to `data/raw/` for each
 of the 6 target schemes, plus a fetch summary.
 
+## Day 2 — Data Cleaning + SQL Database Design — ✅ Complete
+
+**Due:** 25 Jun 2026 | **Time estimate:** 7–8 hours
+
+| # | Task | Status |
+|---|------|--------|
+| 1 | Clean `nav_history.csv`: parse dates, sort, forward-fill, dedupe, validate NAV > 0 | ✅ |
+| 2 | Clean `investor_transactions.csv`: standardise types, validate amounts, check KYC enum | ✅ |
+| 3 | Clean `scheme_performance.csv`: validate numerics, flag anomalies, check expense ratio range | ✅ |
+| 4 | Design 6-table SQLite star schema with PK/FK constraints | ✅ |
+| 5 | Load all cleaned datasets into SQLite, verify row counts | ✅ — 100% match across all 5 loaded tables |
+| 6 | Write 10 analytical SQL queries | ✅ — all 10 tested and returning real results |
+| 7 | Data dictionary documenting all columns/types/definitions | ✅ |
+| 8 | Git commit: `"Day 2: Cleaned data + SQLite DB loaded"` | ✅ |
+
+### Data cleaning findings
+
+All three source datasets (`nav_history`, `investor_transactions`,
+`scheme_performance`) passed validation with **zero rows requiring
+removal** — no negative NAVs, no invalid transaction types or amounts,
+no out-of-range expense ratios, no negative Sharpe ratios. The provided
+data was already clean going in. Full audit trail with before/after row
+counts: `reports/day2_cleaning_log.txt`.
+
+### Star schema
+
+6 tables: `dim_fund`, `dim_date` (2 dimensions) + `fact_nav`,
+`fact_transactions`, `fact_performance`, `fact_aum` (4 facts). Full DDL
+with primary/foreign keys and indexes in `sql/schema.sql`. Built into
+`data/db/bluestock_mf.db` (~9.5MB, gitignored per the project's own
+guidance on `.db` file size — rebuild locally with
+`python scripts/load_to_sqlite.py`, which reads `sql/schema.sql` and
+verifies every table's row count against its source CSV).
+
+### SQL queries
+
+10 business queries in `sql/queries.sql` — top funds by AUM, monthly
+average NAV, fund-house AUM YoY growth, transactions by state, funds
+under 1% expense ratio, top Sharpe ratios, transaction type breakdown,
+SIP amount by age group, worst drawdown by category, and KYC
+verification rate by city tier. All tested against the real database.
+
 ## Upcoming Days
 
-- **Day 2:** Data cleaning, 5-table SQLite star schema, 10 SQL queries
 - **Day 3:** EDA — 15+ charts (NAV trends, AUM growth, SIP inflows, demographics)
 - **Day 4:** Performance analytics — CAGR, Sharpe, Sortino, Alpha/Beta, Max Drawdown, fund scorecard
 - **Day 5:** Power BI / Tableau dashboard (4 pages)

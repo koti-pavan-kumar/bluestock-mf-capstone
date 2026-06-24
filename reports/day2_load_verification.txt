@@ -1,0 +1,12 @@
+DAY 2 — SQLITE LOAD VERIFICATION
+======================================================================
+
+            table              source_file  source_rows  loaded_rows  match
+         dim_fund       01_fund_master.csv           40           40   True
+         fact_nav            clean_nav.csv        46000        46000   True
+fact_transactions   clean_transactions.csv        32778        32778   True
+ fact_performance    clean_performance.csv           40           40   True
+         fact_aum 03_aum_by_fund_house.csv           90           90   True
+
+Database file: data\db\bluestock_mf.db
+Database size: 9548.0 KB
