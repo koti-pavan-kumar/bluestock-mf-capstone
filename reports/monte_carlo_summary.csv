@@ -1,0 +1,6 @@
+amfi_code,scheme_name,nav_start,mu_daily,sigma_daily,ann_volatility_pct,p10_5yr_nav,p50_5yr_nav,p90_5yr_nav,expected_cagr_pct,prob_positive_5yr_pct
+119551,SBI Bluechip Fund - Regular Plan - Growth,149.32,0.000879,0.008646,13.73,284.88,424.06,640.72,23.21,99.8
+119598,SBI Small Cap Fund - Regular Plan - Growth,309.2,0.001075,0.015812,25.1,485.9,1038.61,2143.32,27.42,98.6
+119120,SBI Magnum Gilt Fund - Regular Plan - Growth,54.2,0.000219,0.002498,3.97,63.27,71.11,79.37,5.58,99.8
+120503,ICICI Pru Bluechip Fund - Regular - Growth,118.15,0.000659,0.008741,13.88,174.13,259.22,391.04,17.02,99.5
+100016,HDFC Top 100 Fund - Regular Plan - Growth,583.61,0.0001,0.009159,14.54,413.49,623.47,942.03,1.33,58.9
